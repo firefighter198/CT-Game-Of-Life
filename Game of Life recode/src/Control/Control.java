@@ -96,6 +96,18 @@ public class Control
 
     private void calculateNextGeneration()
     {
+        if(generation == 0)
+        {
+            originalGrid = new boolean[grid.length][grid[0].length];
+            for(int x = 0; x < grid.length; x++)
+            {
+                for(int y = 0; y < grid[0].length; y++)
+                {
+                    originalGrid[x][y] = grid[x][y];
+                }
+            }
+        }
+
         generation++;
         gui.showGenerationIndex(generation);
         boolean[][] _grid = new boolean[grid.length][grid[0].length];
