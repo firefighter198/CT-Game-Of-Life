@@ -96,18 +96,6 @@ public class Control
 
     private void calculateNextGeneration()
     {
-        if(generation == 0)
-        {
-            originalGrid = new boolean[grid.length][grid[0].length];
-            for(int x = 0; x < grid.length; x++)
-            {
-                for(int y = 0; y < grid[0].length; y++)
-                {
-                    originalGrid[x][y] = grid[x][y];
-                }
-            }
-        }
-
         generation++;
         gui.showGenerationIndex(generation);
         boolean[][] _grid = new boolean[grid.length][grid[0].length];
@@ -187,14 +175,27 @@ public class Control
             x = (int) ((float) _x / (800f / ((float) grid.length * ratio)));
             y = (int) ((float) _y / (800f / ((float) grid[0].length)));
             if(x >= 0 && x < grid.length && y >= 0 && y < grid[0].length)
+            {
                 grid[x][y] = value;
+                if(this.generation == 0)
+                {
+                    originalGrid[x][y] = value;
+                }
+            }
 
         } else
         {
             x = (int) ((float) _x / (800f / ((float) grid.length)));
             y = (int) ((float) _y / (800f / ((float) grid[0].length / ratio)));
             if(x >= 0 && x < grid.length && y >= 0 && y < grid[0].length)
+            {
                 grid[x][y] = value;
+                if(this.generation == 0)
+                {
+                    originalGrid[x][y] = value;
+                }
+            }
+
         }
     }
 
