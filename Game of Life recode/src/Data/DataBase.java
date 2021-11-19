@@ -12,6 +12,7 @@ public class DataBase
     private Connection connection;
     private Statement st;
 
+    //connect to the database
     public void connect()
     {
         try
@@ -25,6 +26,7 @@ public class DataBase
         }
     }
 
+    //disconnect from the database
     public void disconnect()
     {
         try
@@ -38,6 +40,7 @@ public class DataBase
         }
     }
 
+    //execute simple sql statement
     public void sql(String statement)
     {
         try
@@ -49,6 +52,7 @@ public class DataBase
         }
     }
 
+    //execute sql statement with resultset return
     public ResultSet sqlRS(String statement)
     {
         try
@@ -62,6 +66,7 @@ public class DataBase
         return null;
     }
 
+    //create all database tables
     public void createDataBase()
     {
         connect();
@@ -71,6 +76,7 @@ public class DataBase
 
     }
 
+    //delete all tables
     public void deleteDataBase()
     {
         connect();
@@ -79,6 +85,7 @@ public class DataBase
         disconnect();
     }
 
+    //save the grid in the database with a name
     public void saveGrid(boolean[][] grid, String name) throws SQLException
     {
         connect();
@@ -91,6 +98,7 @@ public class DataBase
         {
             for(int y = 0; y < grid[0].length; y++)
             {
+                //for each "black cell" create an entry in generationData
                 if(grid[x][y])
                 {
                     sql("insert into generationData (id, x, y) values ("+id+", "+x+", "+y+")");
@@ -100,6 +108,8 @@ public class DataBase
         disconnect();
     }
 
+
+    //load a grid by its name
     public boolean[][] loadGrid(String name) throws SQLException
     {
         boolean[][] grid;
@@ -108,6 +118,7 @@ public class DataBase
 
         try
         {
+            //get the resultset
             ResultSet info = sqlRS("select id, width, height, from generationInfo where name = '" + name + "'");
             info.next();
             int width = info.getInt("width");
@@ -115,12 +126,14 @@ public class DataBase
             int id = info.getInt("id");
             info.close();
 
+            //create the new grid
             grid = new boolean[width][height];
 
             for(int x = 0; x < width; x++)
             {
                 for(int y = 0; y < height; y++)
                 {
+                    //if there is an entry for x and y set true, else false
                     ResultSet value = sqlRS("select * from generationData where id = " + id + " and x = " + x + " and y = " + y);
                     if(value.next())
                     {
@@ -151,6 +164,7 @@ public class DataBase
         return grid;
     }
 
+    //get all possible options from the database
     public List<String> getOptions() throws SQLException
     {
         connect();

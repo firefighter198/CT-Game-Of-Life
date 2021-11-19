@@ -34,17 +34,23 @@ public class Control
         gui.openMenuWindowExclusive();
     }
 
+    //start the game with grid size, and or start arguments
     public void startGame(Vector2 gridSize, String startArgs)
     {
+        //the game shouldnt autorun
         run = false;
+        //create a new grid
         grid = new boolean[gridSize.x][gridSize.y];
 
+        //get the startgrid from the startgenerator
         grid = startGenerator.generateStartGeneration(startArgs, grid);
 
+        //open the game window
         gui.openGameWindowExclusive();
         gui.drawGeneration(grid);
         gui.showGenerationIndex(generation);
 
+        //save the base grid
         originalGrid = new boolean[grid.length][grid[0].length];
         for(int x = 0; x < grid.length; x++)
         {
@@ -55,12 +61,15 @@ public class Control
         }
     }
 
+    //generation += 1
     public void onClickStep(int generation)
     {
+        //calculate next generator if generation paramter is -1
         if(generation == -1)
         {
             calculateNextGeneration();
         }
+        //go to the generation given in generation parameter
         else
         {
             this.generation = 0;
@@ -78,17 +87,21 @@ public class Control
             }
         }
 
+        //update the frame
         gui.showGenerationIndex(this.generation);
         gui.drawGeneration(grid);
     }
 
+    //enable auto run
     public void onClickRun()
     {
         run = !run;
     }
 
+    //function that is continuous called
     public void update()
     {
+        //if game is in auto run mode
         if(run)
         {
             calculateNextGeneration();
@@ -96,12 +109,15 @@ public class Control
         }
     }
 
+    //calculate the next generation
     private void calculateNextGeneration()
     {
+        //increase generation index
         generation++;
         gui.showGenerationIndex(generation);
         boolean[][] _grid = new boolean[grid.length][grid[0].length];
 
+        //calculate surviving, dying and new born cells
         for(int x = 0; x < grid.length; x++)
         {
             for(int y = 0; y < grid[0].length; y++)
@@ -129,9 +145,13 @@ public class Control
             }
         }
 
+        //set grid to temp grid
         grid = _grid;
+
+        gui.drawGeneration(grid);
     }
 
+    //count neighbours of each cell based on vector rotation
     private int countNeighbours(Vector2 pos)
     {
         int count = 0;
@@ -154,6 +174,7 @@ public class Control
         return count;
     }
 
+    //check if a vector position is in grid
     private boolean isInGrid(Vector2 pos)
     {
         if(pos.x < 0 || pos.y < 0 || pos.x >= grid.length || pos.y >= grid[0].length)
@@ -164,6 +185,7 @@ public class Control
         return true;
     }
 
+    //set a cell _x and _y to value
     public void setCell(float _x, float _y, boolean value)
     {
         int x = 0;
@@ -201,6 +223,7 @@ public class Control
         }
     }
 
+    //save grid to database
     public void saveGrid(String name)
     {
         try
@@ -212,17 +235,20 @@ public class Control
         }
     }
 
+    //delete all entries in the database
     public void clearDB()
     {
         db.deleteDataBase();
         db.createDataBase();
     }
 
+    //open the select from database window
     public void onOpenSelectionClick()
     {
         gui.openSelectionWindowExclusive();
     }
 
+    //get all possible options/grids from database
     public List<String> readOptionsFromDataBase()
     {
         try

@@ -16,6 +16,7 @@ public class SelectionWindow extends JFrame
     private GUI gui;
     private List<String> optionStrings;
 
+    //some basic window settings
     public SelectionWindow(GUI gui, List<String> optionButtons)
     {
         this.gui = gui;
@@ -39,6 +40,8 @@ public class SelectionWindow extends JFrame
         });
     }
 
+
+    //add a button for each grid in database
     private void addComponents()
     {
         for(String s : optionStrings)

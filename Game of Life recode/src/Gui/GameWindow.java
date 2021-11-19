@@ -16,6 +16,7 @@ public class GameWindow extends JFrame
     private JButton buttonRun, buttonStep, buttonSaveGrid;
     private JTextField textFieldSaveGridName, textFieldJumpToGeneration;
 
+    //just some settings for the window
     public GameWindow(String title, GUI gui)
     {
         this.gui = gui;
@@ -36,6 +37,7 @@ public class GameWindow extends JFrame
         canvas.drawGeneration(grid);
     }
 
+    //add all components to the window
     private void addComponents()
     {
         //step over/run button
@@ -80,6 +82,7 @@ public class GameWindow extends JFrame
         add(canvas);
     }
 
+    //add listeners to buttons...
     private void addListeners()
     {
         //step over/run button
@@ -134,6 +137,8 @@ public class GameWindow extends JFrame
             }
         });
 
+
+        //for drawing on the game window
         canvas.addMouseMotionListener(new MouseMotionListener()
         {
             @Override
@@ -164,6 +169,8 @@ public class GameWindow extends JFrame
 
             }
 
+
+            //check and save clicked mouse button, left click = paint, right click = erase
             @Override
             public void mousePressed(MouseEvent e)
             {

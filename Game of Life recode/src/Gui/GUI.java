@@ -14,6 +14,7 @@ public class GUI
 
     private String title = "Conway game of life";
 
+    //create the basic windows
     public GUI(Control control)
     {
         this.control = control;
@@ -21,6 +22,7 @@ public class GUI
         gameWindow = new GameWindow(title, this);
     }
 
+    //update the generation index
     public void showGenerationIndex(int generation)
     {
         gameWindow.setTitle(title + " Generation: " + generation);
@@ -36,11 +38,13 @@ public class GUI
         control.onClickRun();
     }
 
+    //draw a new generation to window
     public void drawGeneration(boolean[][] grid)
     {
         gameWindow.drawGeneration(grid);
     }
 
+    //just open menu window
     public void openMenuWindowExclusive()
     {
         gameWindow.setVisible(false);
@@ -52,6 +56,7 @@ public class GUI
         }
     }
 
+    //just open game window
     public void openGameWindowExclusive()
     {
         menuWindow.setVisible(false);
@@ -63,6 +68,7 @@ public class GUI
         }
     }
 
+    //just open selection window
     public void openSelectionWindowExclusive()
     {
         menuWindow.setVisible(false);
@@ -71,15 +77,19 @@ public class GUI
         selectionWindow.setVisible(true);
     }
 
+    //start the game
     public void startGame(Vector2 gridSize, String startArgs)
     {
         control.startGame(gridSize, startArgs);
     }
 
+
+    //open the menu
     public void openMenu()
     {
         control.openMenu();
     }
+
 
     public void setCell(float x, float y, boolean value)
     {
@@ -96,11 +106,14 @@ public class GUI
         control.clearDB();
     }
 
+    //button function
     public void onOpenSelectionClick()
     {
         control.onOpenSelectionClick();
     }
 
+
+    //loop through function
     private List<String> readOptionsFromDataBase()
     {
         return control.readOptionsFromDataBase();

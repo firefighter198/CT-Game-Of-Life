@@ -8,6 +8,7 @@ public class StartGenerator
 {
     private DataBase db = new DataBase();
 
+    //function the returns the startGrid, by arguments given in "name"
     public boolean[][] generateStartGeneration(String name, boolean[][] grid)
     {
         switch(name)
@@ -27,6 +28,7 @@ public class StartGenerator
         return grid;
     }
 
+    //load a grid from the database
     private boolean[][] loadFromDataBase(String name)
     {
 
@@ -41,6 +43,7 @@ public class StartGenerator
         return null;
     }
 
+    //Aufgabe 1 in CT
     private void generateCTTask1(boolean[][] grid)
     {
         grid[1][2] = true;
@@ -51,6 +54,7 @@ public class StartGenerator
         grid[4][3] = true;
     }
 
+    //a randomized filled grid
     private void generateRandomized(boolean[][] grid)
     {
         for (int x = 0; x < grid.length; x++)

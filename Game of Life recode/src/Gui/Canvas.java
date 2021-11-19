@@ -14,9 +14,11 @@ public class Canvas extends JPanel
         super.paintComponent(g);
         g2d = (Graphics2D)g;
 
+        //a lot of aspect ratio calculations
         float div = Math.max(grid.length, grid[0].length);
         div = 800f / div;
 
+        //draw background
         g2d.setColor(Color.lightGray);
         g2d.fillRect(0, 0, (int)(div * grid.length), (int)(div * grid[0].length));
 
@@ -26,6 +28,7 @@ public class Canvas extends JPanel
         {
             for(int y = 0; y < grid[0].length; y++)
             {
+                //if there is a cell, draw black rect
                 if(grid[x][y])
                 {
                     g2d.fillRect((int)(x * div), (int)(y * div), (int)div +1, (int)div +1);
@@ -36,6 +39,7 @@ public class Canvas extends JPanel
         repaint();
     }
 
+    //load in new grid to draw
     public void drawGeneration(boolean[][] grid)
     {
         this.grid = grid;

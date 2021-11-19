@@ -21,6 +21,7 @@ public class MenuWindow extends JFrame
     private JComboBox<String> comboBoxStartingMethod;
     private JLabel textFieldGridSizeX, textFieldGridSizeY;
 
+    //basic window settings
     public MenuWindow(String title, GUI gui)
     {
         this.gui = gui;
@@ -37,6 +38,7 @@ public class MenuWindow extends JFrame
         addListeners();
     }
 
+    //add all components to the window
     private void addComponents()
     {
         //Start game button
@@ -97,6 +99,7 @@ public class MenuWindow extends JFrame
         add(textFieldGridSizeY);
     }
 
+    //add all listeners to buttons...
     private void addListeners()
     {
         //Start game button
