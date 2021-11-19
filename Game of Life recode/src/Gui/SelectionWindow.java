@@ -49,7 +49,6 @@ public class SelectionWindow extends JFrame
             JButton b = new JButton();
             b.setText(s);
             b.setContentAreaFilled(false);
-            b.setBounds(325, 340, 150, 30);
             b.setFocusPainted(false);
             b.addActionListener(new ActionListener()
             {
