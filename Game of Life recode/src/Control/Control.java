@@ -5,7 +5,9 @@ import Gui.GUI;
 import Gui.GameWindow;
 import Gui.MenuWindow;
 
+import javax.swing.*;
 import java.sql.SQLException;
+import java.util.List;
 
 public class Control
 {
@@ -21,9 +23,9 @@ public class Control
 
     public Control()
     {
+        db = new DataBase();
         gui = new GUI(this);
         startGenerator = new StartGenerator();
-        db = new DataBase();
     }
 
     public void openMenu()
@@ -214,5 +216,23 @@ public class Control
     {
         db.deleteDataBase();
         db.createDataBase();
+    }
+
+    public void onOpenSelectionClick()
+    {
+        gui.openSelectionWindowExclusive();
+    }
+
+    public List<String> readOptionsFromDataBase()
+    {
+        try
+        {
+            return db.getOptions();
+        } catch (SQLException throwables)
+        {
+            throwables.printStackTrace();
+        }
+
+        return null;
     }
 }

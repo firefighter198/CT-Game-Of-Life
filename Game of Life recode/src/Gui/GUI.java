@@ -2,11 +2,15 @@ package Gui;
 
 import Control.*;
 
+import javax.swing.*;
+import java.util.List;
+
 public class GUI
 {
     private Control control;
     private MenuWindow menuWindow;
     private GameWindow gameWindow;
+    private SelectionWindow selectionWindow;
 
     private String title = "Conway game of life";
 
@@ -41,12 +45,30 @@ public class GUI
     {
         gameWindow.setVisible(false);
         menuWindow.setVisible(true);
+        if(selectionWindow != null)
+        {
+            selectionWindow.setVisible(false);
+            selectionWindow = null;
+        }
     }
 
     public void openGameWindowExclusive()
     {
         menuWindow.setVisible(false);
         gameWindow.setVisible(true);
+        if(selectionWindow != null)
+        {
+            selectionWindow.setVisible(false);
+            selectionWindow = null;
+        }
+    }
+
+    public void openSelectionWindowExclusive()
+    {
+        menuWindow.setVisible(false);
+        gameWindow.setVisible(false);
+        selectionWindow = new SelectionWindow(this, readOptionsFromDataBase());
+        selectionWindow.setVisible(true);
     }
 
     public void startGame(Vector2 gridSize, String startArgs)
@@ -72,5 +94,15 @@ public class GUI
     public void clearDB()
     {
         control.clearDB();
+    }
+
+    public void onOpenSelectionClick()
+    {
+        control.onOpenSelectionClick();
+    }
+
+    private List<String> readOptionsFromDataBase()
+    {
+        return control.readOptionsFromDataBase();
     }
 }

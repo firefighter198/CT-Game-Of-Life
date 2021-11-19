@@ -16,8 +16,7 @@ public class MenuWindow extends JFrame
     private GUI gui;
 
     //components
-    private JButton buttonClearDB, buttonStartGame;
-    private JTextField textFieldLoadName;
+    private JButton buttonClearDB, buttonStartGame, buttonLoadFromDataBase;
     private JSlider sliderGridSizeX, sliderGridSizeY;
     private JComboBox<String> comboBoxStartingMethod;
     private JLabel textFieldGridSizeX, textFieldGridSizeY;
@@ -56,10 +55,14 @@ public class MenuWindow extends JFrame
         buttonClearDB.setFocusPainted(false);
         add(buttonClearDB);
 
-        //Load name textField
-        textFieldLoadName = new JTextField();
-        textFieldLoadName.setBounds(165, 340, 150, 30);
-        add(textFieldLoadName);
+        //Button Load From DataBase
+        buttonLoadFromDataBase = new JButton();
+        buttonLoadFromDataBase.setText("From DataBase");
+        buttonLoadFromDataBase.setContentAreaFilled(false);
+        buttonLoadFromDataBase.setBounds(165, 340, 150, 30);
+        buttonLoadFromDataBase.setFocusPainted(false);
+        add(buttonLoadFromDataBase);
+
 
         //Grid size x slider
         sliderGridSizeX = new JSlider(6, 150);
@@ -102,17 +105,8 @@ public class MenuWindow extends JFrame
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                if(textFieldLoadName.getText().equals(""))
-                {
-                    gui.startGame(new Vector2(Integer.parseInt(textFieldGridSizeX.getText()), Integer.parseInt(textFieldGridSizeY.getText())),
-                            comboBoxStartingMethod.getSelectedItem().toString());
-                }
-                else
-                {
-                    gui.startGame(new Vector2(0, 0), textFieldLoadName.getText());
-                }
-
-                textFieldLoadName.setText("");
+                gui.startGame(new Vector2(Integer.parseInt(textFieldGridSizeX.getText()), Integer.parseInt(textFieldGridSizeY.getText())),
+                        comboBoxStartingMethod.getSelectedItem().toString());
             }
         });
 
@@ -123,6 +117,16 @@ public class MenuWindow extends JFrame
             public void actionPerformed(ActionEvent e)
             {
                 gui.clearDB();
+            }
+        });
+
+        //Load from DataBase button
+        buttonLoadFromDataBase.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                gui.onOpenSelectionClick();
             }
         });
 

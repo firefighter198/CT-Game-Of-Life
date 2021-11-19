@@ -2,7 +2,10 @@ package Data;
 
 import Control.Vector2;
 
+import javax.swing.*;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DataBase
 {
@@ -146,5 +149,24 @@ public class DataBase
         }
 
         return grid;
+    }
+
+    public List<String> getOptions() throws SQLException
+    {
+        connect();
+
+        List<String> out = new ArrayList<>();
+
+        ResultSet res = sqlRS("select name from generationInfo");
+
+
+        while(res.next())
+        {
+            out.add(res.getString(1));
+        }
+
+        disconnect();
+
+        return out;
     }
 }
