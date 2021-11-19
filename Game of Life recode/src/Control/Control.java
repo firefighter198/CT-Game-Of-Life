@@ -59,6 +59,9 @@ public class Control
                 originalGrid[x][y] = grid[x][y];
             }
         }
+
+        generation = 0;
+        gui.showGenerationIndex(generation);
     }
 
     //generation += 1
